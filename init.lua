@@ -1,4 +1,5 @@
 local addr, invoke = computer.getBootAddress(), component.invoke
+
 local function loadfile(file)
   local handle = assert(invoke(addr, "open", file))
   local buffer = ""
@@ -9,7 +10,8 @@ local function loadfile(file)
   invoke(addr, "close", handle)
   return load(buffer, "=" .. file, "bt", _G)
 end
-loadfile("/sys/boot.lua")(loadfile)
+
+loadfile("/sys/core/start.lua")(loadfile)
 
 while true do
   if _G.shutdown then
